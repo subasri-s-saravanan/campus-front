@@ -1,0 +1,3 @@
+[submodule "campus-connect-front-end"]
+	path = campus-connect-front-end
+	url = https://github.com/subasri-s-saravanan/campus-connect-front-end.git
