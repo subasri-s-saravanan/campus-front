@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Campus Connect - Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f4f8;
+      transition: all 0.3s ease;
+    }
+
+    nav {
+      background-color: #1a1a2e;
+      padding: 1em;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav li {
+      margin: 0 15px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: #00adb5;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: #16213e;
+      color: #fff;
+      font-size: 1.8rem;
+      position: relative;
+    }
+
+    #clock {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      font-size: 1rem;
+      color: #aaa;
+    }
+
+    .auth-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .auth-form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    .auth-form h3 {
+      color: #0f3460;
+      margin-bottom: 15px;
+    }
+
+    .auth-form input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .auth-form button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .auth-form button:hover {
+      background-color: #0056b3;
+    }
+
+    .user-greeting, .logout-btn {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .logout-btn button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background-color: #f44336;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .logout-btn button:hover {
+      background-color: #c62828;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #1a1a2e;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#announcements">Announcements</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    Glad to welcome and connect Everyone
+    <div id="clock"></div>
+  </header>
+
+  <div class="auth-container" id="authSection">
+    <div class="auth-form" id="loginForm">
+      <h3>Login</h3>
+      <input type="text" id="loginUser" placeholder="Username" />
+      <input type="password" id="loginPass" placeholder="Password" />
+      <button onclick="login()">Login</button>
+      <p id="loginError" style="color: red; display: none;">Invalid username or password.</p>
+    </div>
+  </div>
+
+  <div class="user-greeting" id="greeting" style="display: none;"></div>
+  <div class="logout-btn" style="display: none;"><button onclick="logout()">Logout</button></div>
+
+  <section id="events" style="display: none;">
+    <h2>Upcoming Event</h2>
+    <div class="event-card">
+      <h3>Design Society</h3>
+      <p><strong>Date:</strong> April 20, 2025</p>
+      <p><strong>Topic:</strong> UI/UX from Scratch</p>
+      <p><strong>Time:</strong> 4:00 PM - 5:30 PM</p>
+      <button onclick="alert('You have joined the event!')">Join</button>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Campus Connect. All rights reserved.
+  </footer>
+
+  <script>
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("nav a");
+
+    // Login function
+    function login() {
+      const username = document.getElementById("loginUser").value.trim();
+      const password = document.getElementById("loginPass").value.trim();
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+
+      if (users[username] && users[username] === password) {
+        alert("Login successful!");
+        showMainContent(username);
+      } else {
+        document.getElementById("loginError").style.display = "block";
+      }
+    }
+
+    // Show main content after login
+    function showMainContent(username) {
+      document.getElementById("authSection").style.display = "none";
+      document.getElementById("greeting").innerText = `Welcome, ${username}!`;
+      document.getElementById("greeting").style.display = "block";
+      document.querySelector(".logout-btn").style.display = "block";
+      document.getElementById("events").style.display = "block";
+    }
+
+    // Logout function
+    function logout() {
+      localStorage.clear(); // Clear saved users
+      document.getElementById("authSection").style.display = "flex"; // Show login form again
+      document.getElementById("greeting").style.display = "none"; // Hide greeting message
+      document.querySelector(".logout-btn").style.display = "none"; // Hide logout button
+      document.getElementById("events").style.display = "none"; // Hide events section
+    }
+
+    // Handle section navigation
+    navLinks.forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        const id = link.getAttribute("href").substring(1);
+        sections.forEach(sec => sec.style.display = "none");
+        document.getElementById(id).style.display = "block";
+      });
+    });
+
+    // Clock functionality
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("clock").innerText =
+        now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock(); // Call initially to set time immediately
+  </script>
+</body>
+</html>

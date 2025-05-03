@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Campus Connect</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f4f8;
+    }
+
+    nav {
+      background-color: #1a1a2e;
+      padding: 1em;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav li {
+      margin: 0 15px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: #16213e;
+      color: #fff;
+      font-size: 1.8rem;
+    }
+
+    .auth-container {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .auth-form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    .auth-form h3 {
+      color: #0f3460;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .auth-form input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .auth-form button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .auth-form button:hover {
+      background-color: #0056b3;
+    }
+
+    .auth-form p {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    section {
+      padding: 30px 20px;
+      margin: 20px auto;
+      width: 80%;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #0f3460;
+    }
+
+    .event-card {
+      background-color: #e0f7fa;
+      border-left: 5px solid #007bff;
+      padding: 15px 20px;
+      margin-top: 15px;
+      border-radius: 5px;
+    }
+
+    .event-card h3 {
+      margin-top: 0;
+      color: #007bff;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #1a1a2e;
+      color: white;
+    }
+
+    /* Time display styling */
+    #currentTime {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#announcements">Announcements</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#clubs">Clubs</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#resources">Resources</a></li>
+      <li><a href="#profile">Profile</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    Glad to welcome and connect Everyone
+    <div id="currentTime"></div> <!-- Time display here -->
+  </header>
+
+  <div class="auth-container">
+    <div class="auth-form" id="authForm">
+      <h3 id="formTitle">Login</h3>
+      <input type="text" id="authUser" placeholder="Username" />
+      <input type="password" id="authPass" placeholder="Password" />
+      <button onclick="submitAuth()">Login</button>
+      <p>
+        <a href="#" onclick="toggleForm(event)" id="toggleLink">Don't have an account? Register</a>
+      </p>
+    </div>
+  </div>
+  
+
+  <section id="clubs" class="hidden">
+    <h2>Campus Clubs</h2>
+    <p>Explore various student clubs like Coding, Arts, Robotics, Music, and more.</p>
+  </section>
+
+  <section id="gallery" class="hidden">
+    <h2>Gallery</h2>
+    <p>Check out photos from recent campus events and student activities.</p>
+    <img src="our logo.png" alt="Event Photo" style="border-radius:8px; width: 150px; height: auto;">
+
+  </section>
+
+  <section id="resources" class="hidden">
+    <h2>Resources</h2>
+    <ul>
+      <li><a href="#">Student Handbook</a></li>
+      <li><a href="#">Lab Schedules</a></li>
+      <li><a href="#">Library Access</a></li>
+    </ul>
+  </section>
+
+  <section id="profile" class="hidden">
+    <h2>User Profile</h2>
+    <p><strong>Username:</strong> <span id="profileUser">-</span></p>
+  </section>
+
+  <section id="events" class="hidden">
+    <h2>Upcoming Event</h2>
+    <div class="event-card">
+      <h3>Design Society</h3>
+      <p><strong>Date:</strong> April 20, 2025</p>
+      <p><strong>Topic:</strong> UI/UX from Scratch</p>
+      <p><strong>Time:</strong> 4:00 PM - 5:30 PM</p>
+      <button onclick="alert('You have joined the event!')">Join</button>
+    </div>
+  </section>
+
+  <section id="announcements" class="hidden">
+    <h2>Announcements</h2>
+    <p>No new announcements at the moment. Stay tuned!</p>
+  </section>
+
+  <section id="about" class="hidden">
+    <h2>About</h2>
+    <p>This platform helps connect all students with the latest events and announcements in the campus.</p>
+  </section>
+
+  <section id="contact" class="hidden">
+    <h2>Contact</h2>
+    <p>Email: connect@campus.edu</p>
+    <p>Phone: +91 98765 43210</p>
+  </section>
+
+  <footer>
+    &copy; 2025 Campus Connect. All rights reserved.
+  </footer>
+
+  <script>
+    let users = {};
+    let isLogin = true;
+
+    function toggleForm(event) {
+      event.preventDefault();
+      isLogin = !isLogin;
+      document.getElementById('formTitle').textContent = isLogin ? 'Login' : 'Register';
+      document.querySelector('#authForm button').textContent = isLogin ? 'Login' : 'Register';
+      document.getElementById('toggleLink').textContent = isLogin
+        ? "Don't have an account? Register"
+        : "Already have an account? Login";
+    }
+
+    function submitAuth() {
+      const username = document.getElementById('authUser').value.trim();
+      const password = document.getElementById('authPass').value.trim();
+
+      if (!username || !password) {
+        alert('Please fill out both fields.');
+        return;
+      }
+
+      if (isLogin) {
+        if (users[username] && users[username] === password) {
+          alert('Login successful!');
+          document.querySelectorAll('section').forEach(sec => sec.classList.remove('hidden'));
+          document.querySelector('.auth-container').style.display = 'none';
+          document.getElementById('profileUser').textContent = username;
+        } else {
+          alert('Invalid username or password.');
+        }
+      } else {
+        if (users[username]) {
+          alert('Username already exists!');
+        } else {
+          users[username] = password;
+          alert('Registered successfully! You can now log in.');
+          toggleForm(event); // switch to login view
+        }
+      }
+    }
+
+    // Function to update the current time
+    function updateTime() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      const timeString = `${hours}:${minutes}:${seconds}`;
+      document.getElementById('currentTime').textContent = `Current Time: ${timeString}`;
+    }
+
+    // Update the time every second
+    setInterval(updateTime, 1000);
+    updateTime(); // Set the initial time
+      // Profile Dropdown functionality
+      const profilePic = document.getElementById('profilePic');
+      const dropdownMenu = document.getElementById('dropdownMenu');
+
+      profilePic.addEventListener('click', function(event) {
+        event.stopPropagation();  // Prevent closing dropdown immediately
+        dropdownMenu.style.display = (dropdownMenu.style.display === 'block') ? 'none' : 'block';
+      });
+
+      window.addEventListener('click', function(event) {
+        if (!profilePic.contains(event.target) && !dropdownMenu.contains(event.target)) {
+          dropdownMenu.style.display = 'none';
+        }
+      });
+
+      // Dark Mode Toggle
+      function toggleDarkMode() {
+        document.body.classList.toggle('dark');
+        document.querySelector('.club-card').classList.toggle('dark');
+      }
+
+      // Toggle Event Description
+      function toggleMore() {
+        const section = document.getElementById('moreInfo');
+        section.classList.toggle('expanded');
+      }
+    
+  </script>
+</body>
+</html>
